@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
 require_relative 'book'
 require_relative 'classroom'
