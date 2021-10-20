@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
 require_relative 'book'
 require_relative 'classroom'
 require_relative 'person'
@@ -18,7 +19,7 @@ class App
     command = nil
     while command != '7'
       commands
-      
+
       command = gets.chomp
       case command
       when '1'
@@ -38,7 +39,7 @@ class App
       else
         puts 'Invalid option'
       end
-    end    
+    end   
   end
 
   def commands
@@ -51,7 +52,7 @@ class App
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
   end
-  
+
   def list_books
     @books.each do |book|
       puts "Title: \"#{book.title}\", Author: #{book.author}"
@@ -147,7 +148,6 @@ class App
     end
     puts ''
   end
-
 end
 
 def main
@@ -156,3 +156,5 @@ def main
 end
 
 main
+
+# rubocop:enable Metrics\CyclomaticComplexity, Metrics/MethodLength
