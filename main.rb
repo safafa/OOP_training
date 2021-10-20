@@ -52,7 +52,12 @@ class App
     puts '7 - Exit'
   end
   
-  def list_books; end
+  def list_books
+    @books.each do |book|
+      puts "Title: \"#{book.title}\", Author: #{book.author}"
+    end
+    puts ''
+  end
 
   def list_people; end
 
