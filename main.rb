@@ -39,7 +39,7 @@ class App
       else
         puts 'Invalid option'
       end
-    end   
+    end
   end
 
   def commands
