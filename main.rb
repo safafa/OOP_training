@@ -59,7 +59,12 @@ class App
     puts ''
   end
 
-  def list_people; end
+  def list_people
+    @people.each do |person|
+      puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+    puts ''
+  end
 
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
