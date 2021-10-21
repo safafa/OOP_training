@@ -11,6 +11,7 @@ require_relative 'rentals/main'
 
 class App
   attr_accessor :books, :people
+
   def initialize(people = [], books = [], rentals = [])
     @books = books
     @people = people
@@ -55,7 +56,6 @@ class App
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
   end
-
 end
 
 def main
