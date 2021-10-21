@@ -1,3 +1,4 @@
+# rubocop:disable Style/OptionalBooleanParameter
 require './corrector'
 
 class Person
@@ -31,3 +32,4 @@ class Person
     Rental.new(date, book, self)
   end
 end
+# rubocop:enable Style/OptionalBooleanParameter
