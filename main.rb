@@ -1,11 +1,12 @@
 # rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
-require_relative 'book'
+require_relative 'books/book'
 require_relative 'classroom'
 require_relative 'people/person'
 require_relative 'rental'
 require_relative 'people/student'
 require_relative 'people/teacher'
 require_relative 'people/main'
+require_relative 'books/main'
 
 class App
   def initialize(people = [], books = [], rentals = [])
@@ -23,13 +24,13 @@ class App
       command = gets.chomp
       case command
       when '1'
-        list_books
+        @books.list_books
       when '2'
         @people.list_people
       when '3'
         @people.create_person
       when '4'
-        create_book
+        @books.create_book
       when '5'
         create_rental
       when '6'
@@ -51,29 +52,6 @@ class App
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
-  end
-
-  def list_books
-    puts 'No books added' if @books.empty?
-
-    @books.each do |book|
-      puts "Title: \"#{book.title}\", Author: #{book.author}"
-    end
-    puts ''
-  end
-
-  def create_book
-    print 'Title : '
-    title = gets.chomp
-
-    print 'Author: '
-    author = gets.chomp
-
-    book = Book.new(title, author)
-    @books << book
-
-    puts 'Book created successfully'
-    puts ''
   end
 
   def create_rental
@@ -113,7 +91,8 @@ end
 
 def main
   people = PersonInitialize.new
-  app = App.new(people)
+  books = BookInitialize.new
+  app = App.new(people, books)
   app.run
 end
 
