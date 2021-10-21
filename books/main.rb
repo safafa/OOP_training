@@ -28,4 +28,7 @@ class BookInitialize
         puts ''
       end
     
+      def books
+        @books
+      end
 end

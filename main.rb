@@ -1,14 +1,16 @@
 # rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
 require_relative 'books/book'
-require_relative 'classroom'
+require_relative 'people/classroom'
 require_relative 'people/person'
-require_relative 'rental'
+require_relative 'rentals/rental'
 require_relative 'people/student'
 require_relative 'people/teacher'
 require_relative 'people/main'
 require_relative 'books/main'
+require_relative 'rentals/main'
 
 class App
+  attr_accessor :books, :people
   def initialize(people = [], books = [], rentals = [])
     @books = books
     @people = people
@@ -32,9 +34,9 @@ class App
       when '4'
         @books.create_book
       when '5'
-        create_rental
+        @rentals.create_rental(@books.books, @people.people)
       when '6'
-        list_rentals
+        @rentals.list_rentals
       when '7'
         puts 'Thank you for using this app!'
       else
@@ -54,45 +56,13 @@ class App
     puts '7 - Exit'
   end
 
-  def create_rental
-    puts 'Select a book from the following list by number'
-    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
-
-    book_index = gets.chomp.to_i
-
-    puts 'Select a person from the following list by number (not id)'
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
-
-    person_index = gets.chomp.to_i
-
-    print 'Date: '
-    date = gets.chomp
-
-    rental = Rental.new(date, @books[book_index], @people[person_index])
-
-    @rentals << rental
-    puts 'Rental created successfully'
-  end
-
-  def list_rentals
-    print 'ID of person: '
-    id = gets.chomp.to_i
-
-    puts 'Rentals:'
-
-    @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
-    end
-    puts ''
-  end
 end
 
 def main
   people = PersonInitialize.new
   books = BookInitialize.new
-  app = App.new(people, books)
+  rentals = RentalInitialize.new
+  app = App.new(people, books, rentals)
   app.run
 end
 
