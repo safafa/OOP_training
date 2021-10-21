@@ -53,6 +53,8 @@ class App
   end
 
   def list_books
+    puts 'No books added' if @books.empty?
+
     @books.each do |book|
       puts "Title: \"#{book.title}\", Author: #{book.author}"
     end
