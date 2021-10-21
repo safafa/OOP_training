@@ -1,16 +1,17 @@
 # rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
 require_relative 'book'
 require_relative 'classroom'
-require_relative 'person'
+require_relative 'people/person'
 require_relative 'rental'
-require_relative 'student'
-require_relative 'teacher'
+require_relative 'people/student'
+require_relative 'people/teacher'
+require_relative 'people/main'
 
 class App
-  def initialize
-    @books = []
-    @people = []
-    @rentals = []
+  def initialize(people = [], books = [], rentals = [])
+    @books = books
+    @people = people
+    @rentals = rentals
   end
 
   def run
@@ -24,9 +25,9 @@ class App
       when '1'
         list_books
       when '2'
-        list_people
+        @people.list_people
       when '3'
-        create_person
+        @people.create_person
       when '4'
         create_book
       when '5'
@@ -58,49 +59,6 @@ class App
     @books.each do |book|
       puts "Title: \"#{book.title}\", Author: #{book.author}"
     end
-    puts ''
-  end
-
-  def list_people
-    puts 'No student or teacher added' if @people.empty?
-
-    @people.each do |person|
-      puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
-    puts ''
-  end
-
-  def create_person
-    print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-    option = gets.chomp
-
-    case option
-    when '1'
-      print 'Age: '
-      age = gets.chomp
-
-      print 'Name: '
-      name = gets.chomp
-
-      print 'Has parent permission? [y/n]: '
-      parent_permission = gets.chomp == 'y'
-
-      student = Student.new(age, name, parent_permission)
-      @people << student
-    when '2'
-      print 'Age: '
-      age = gets.chomp
-
-      print 'Name: '
-      name = gets.chomp
-
-      print 'Specialization: '
-      specialization = gets.chomp
-
-      teacher = Teacher.new(age, specialization, name)
-      @people << teacher
-    end
-    puts 'Person created successfully'
     puts ''
   end
 
@@ -154,7 +112,8 @@ class App
 end
 
 def main
-  app = App.new
+  people = PersonInitialize.new
+  app = App.new(people)
   app.run
 end
 

@@ -1,5 +1,5 @@
 # rubocop:disable Style/OptionalBooleanParameter
-require './corrector'
+require_relative 'corrector'
 
 class Person
   attr_accessor :name, :age, :rentals
