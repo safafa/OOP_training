@@ -1,4 +1,3 @@
-# rubocop:disable Metrics\CyclomaticComplexity, Metrics/MethodLength
 require_relative 'books/book'
 require_relative 'people/classroom'
 require_relative 'people/person'
@@ -23,26 +22,29 @@ class App
     command = nil
     while command != '7'
       commands
-
       command = gets.chomp
-      case command
-      when '1'
-        @books.list_books
-      when '2'
-        @people.list_people
-      when '3'
-        @people.create_person
-      when '4'
-        @books.create_book
-      when '5'
-        @rentals.create_rental(@books.books, @people.people)
-      when '6'
-        @rentals.list_rentals
-      when '7'
-        puts 'Thank you for using this app!'
-      else
-        puts 'Invalid option'
-      end
+      check_options(command)
+    end
+  end
+
+  def check_options(command) # rubocop:disable Metrics/CyclomaticComplexity
+    case command
+    when '1'
+      @books.list_books
+    when '2'
+      @people.list_people
+    when '3'
+      @people.create_person
+    when '4'
+      @books.create_book
+    when '5'
+      @rentals.create_rental(@books.books, @people.people)
+    when '6'
+      @rentals.list_rentals
+    when '7'
+      puts 'Thank you for using this app!'
+    else
+      puts 'Invalid option'
     end
   end
 
@@ -67,5 +69,3 @@ def main
 end
 
 main
-
-# rubocop:enable Metrics\CyclomaticComplexity, Metrics/MethodLength
