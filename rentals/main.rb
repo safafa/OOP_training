@@ -20,11 +20,14 @@ class RentalInitialize
 
     print 'Date: '
     date = gets.chomp
+    save_rental(date, books[book_index], people[person_index])
+  end
 
-    rental = Rental.new(date, books[book_index], people[person_index])
-
+  def save_rental(date, book, person)) 
+    rental = Rental.new(date, book, person)
     @rentals << rental
     puts 'Rental created successfully'
+
   end
 
   def list_rentals
